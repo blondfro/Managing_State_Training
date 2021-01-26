@@ -27,9 +27,13 @@ export default function App() {
 
   function updateQuantity(sku, quantity) {
     setCart((items) => {
-      return items.map((item) =>
-        item.sku === sku ? { ...item, quantity } : item
-      );
+      // check if the quantity is 0, if yes, remove item, if not return new array.
+
+      return quantity === 0
+        ? items.filter((item) => item.sku !== sku)
+        : items.map((item) =>
+            item.sku === sku ? { ...item, quantity } : item
+          );
     });
   }
 
