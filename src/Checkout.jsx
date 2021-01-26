@@ -19,20 +19,24 @@ export default function Checkout({ cart, emptyCart }) {
   const [address, setAddress] = useState(emptyAddress);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
+  const [touched, setTouched] = useState({});
 
   // Derived state
   const errors = getErrors(address);
   const isValid = Object.keys(errors).length === 0;
 
   function handleChange(e) {
-    e.persist(); //persist the event for react
+    e.persist(); //persist the event for react not needed in React 17 or higher.
     setAddress((curAddr) => {
       return { ...curAddr, [e.target.id]: e.target.value };
     });
   }
 
   function handleBlur(event) {
-    // TODO
+    event.persist();
+    setTouched((curr) => {
+      return { ...curr, [event.target.id]: true };
+    });
   }
 
   async function handleSubmit(event) {
@@ -87,6 +91,9 @@ export default function Checkout({ cart, emptyCart }) {
             onBlur={handleBlur}
             onChange={handleChange}
           />
+          <p role="alert">
+            {(touched.city || status === STATUS.SUBMITTED) && errors.city}
+          </p>
         </div>
 
         <div>
@@ -104,6 +111,9 @@ export default function Checkout({ cart, emptyCart }) {
             <option value="United Kingdom">United Kingdom</option>
             <option value="USA">USA</option>
           </select>
+          <p role="alert">
+            {(touched.country || status === STATUS.SUBMITTED) && errors.country}
+          </p>
         </div>
 
         <div>
