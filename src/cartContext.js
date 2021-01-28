@@ -1,7 +1,7 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useContext } from "react";
 import cartReducer from "./cartReducer";
 
-export const CartContext = React.createContext(null);
+const CartContext = React.createContext(null);
 
 let initialCart;
 try {
@@ -22,4 +22,9 @@ export function CartProvider(props) {
       {props.children}
     </CartContext.Provider>
   );
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  return context;
 }
