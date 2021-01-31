@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Products from "./Products";
 import Cart from "./Cart";
-import Detail from "./Detail";
+import Detail from "./Detail.class";
 import Checkout from "./Checkout.class";
 import { useCart } from "./cartContext";
 
