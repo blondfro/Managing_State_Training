@@ -37,6 +37,6 @@ export default function useFetch(url) {
 }
 
 export function Fetch({ url, render }) {
-  const { data, loading, error } = useFetch();
+  const { data, loading, error } = useFetch(url);
   return render(data, loading, error);
 }
